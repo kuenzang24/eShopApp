@@ -11,13 +11,20 @@ import ProductContainer from './Screens/Products/ProductContainer';
 //Navigators
 import Main from "./Navigators/Main";
 
-LogBox.ignoreAllLogs(true)
+LogBox.ignoreAllLogs(true);
+
+// Redux
+import {Provider} from "react-redux";
+import store, { Store } from './Redux/store';
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <Header />
-      <Main />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Header />
+        <Main />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
