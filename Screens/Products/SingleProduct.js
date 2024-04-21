@@ -8,10 +8,14 @@ import {
     Dimensions,
 } from "react-native";
 
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/cartActions";
+
 const { width, height } = Dimensions.get("window");
 
 function SingleProduct(props) {
     let product = props.route.params.item;
+
     return (
         <View style={styles.rootContainer}>
             <View style={styles.imageContainer}>
@@ -33,45 +37,54 @@ function SingleProduct(props) {
                 <View style={styles.productButton}>
                 
                 <Text style={styles.productPrice}>Nu.{product.price.toFixed(2)}</Text>
-                <Button title="Add" />
+                <Button title="Add"  onPress={() => props.addItemToCart(product)} />
             </View>
         </View>
     );
 }
-export default SingleProduct;
+
+const mapToDispatchToProps = (dispatch) => {
+    return {
+        addItemToCart: (product) =>
+        dispatch(actions.addToCart({ quantity: 1, product })),
+    };
+};
+
+export default connect(null, mapToDispatchToProps)(SingleProduct);
+
 const styles = StyleSheet.create({
-rootContainer: {
-flex: 1,
-justifyContent: "space-evenly",
-},
-imageContainer: {
-width: width,
-height: height / 4,
-paddingVertical: 10,
-paddingHorizontal: 20,
-},
-image: {
-width: "100%",
-height: "100%",
-},
-productDetails: {
-justifyContent: "center",
-alignItems: "center",
-},
-productButton: {
-flexDirection: "row",
-justifyContent: "space-between",
-paddingHorizontal: 20,
-},
-productName: {
-fontSize: 18,
-fontWeight: "bold",
-},
-productBrand: {
-fontWeight: "bold",
-},
-productPrice: {
-color: "orange",
-fontSize: 18,
-},
+    rootContainer: {
+        flex: 1,
+        justifyContent: "space-evenly",
+    },
+    imageContainer: {
+        width: width,
+        height: height / 4,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+    },
+    productDetails: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    productButton: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 20,
+    },
+    productName: {
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    productBrand: {
+        fontWeight: "bold",
+    },
+    productPrice: {
+        color: "orange",
+        fontSize: 18,
+    },
 });
