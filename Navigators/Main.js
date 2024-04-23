@@ -2,6 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CartIcon from "../Shared/CartIcon";
 
 //Stacks
 import HomeNavigator from "./HomeNavigator";
@@ -38,12 +39,15 @@ const Main = () => {
                 component={CartNavigator}
                 options={{
                     tabBarIcon: ({color}) => (
-                        <Icon
-                            name= 'shopping-cart'
-                            style={{position: 'relative'}}
-                            color={color}
-                            size={30}
-                        />
+                        <View>
+                            <Icon
+                                name= 'shopping-cart'
+                                style={{position: 'relative'}}
+                                color={color}
+                                size={30}
+                            />
+                            <CartIcon/>
+                        </View>
                     )
                 }}
             />
