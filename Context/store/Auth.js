@@ -17,6 +17,7 @@ const Auth = (props) => {
     setShowChild(true);
     if (AsyncStorage.jwt) {
       const decoded = AsyncStorage.jwt ? AsyncStorage.jwt : "";
+      console.log(decoded)
       //try console log to see the details
       if (setShowChild) {
         dispatch(setCurrentUser(jwt_decode(decoded)));

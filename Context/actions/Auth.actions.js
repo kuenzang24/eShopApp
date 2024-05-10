@@ -22,6 +22,11 @@ export const loginUser = (user, dispatch) => {
         const token = data.token;
         AsyncStorage.setItem("jwt", token);
         const decoded = jwt_decode(token);
+
+        console.log(token)
+        console.log(decoded)
+        console.log(!isEmpty(decoded))
+        
         dispatch(setCurrentUser(decoded, user));
       } else {
         logoutUser(dispatch);
@@ -58,8 +63,6 @@ export const logoutUser = (dispatch) => {
 
 export const setCurrentUser = (decoded, user) => {
   return {
-    ...state,
-    isAuthenticated: !isEmpty(action.payload),
     type: SET_CURRENT_USER,
     payload: decoded,
     userProfile: user,

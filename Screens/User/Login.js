@@ -16,7 +16,6 @@ const Login = (props) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    console.log(context);
     if (context.stateUser.isAuthenticated === true) {
       props.navigation.navigate("User Profile");
     }
@@ -31,6 +30,7 @@ const Login = (props) => {
     if (email === "" || password === "") {
       setError("Please fill in your credential");
     } else {
+      console.log("Logging In ...");
       loginUser(user, context.dispatch);
     }
   };

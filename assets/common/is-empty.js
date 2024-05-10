@@ -4,4 +4,5 @@ const isEmpty = (value) =>
   (typeof value === "object" && Object.keys(value).length === 0) ||
   //Check if the object keys is zero which means empty
   (typeof value === "string" && value.trim().length === 0);
+  
 export default isEmpty;
