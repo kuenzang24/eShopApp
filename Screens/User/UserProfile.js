@@ -6,8 +6,10 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import { logoutUser } from "../../Context/actions/Auth.actions";
+import OrderCard from "../../Shared/OrderCard";
 
 const UserProfile = (props) => {
+  const [orders, setOrders] = useState();
   const context = useContext(AuthGlobal);
   const [userProfile, setUserProfile] = useState();
 
@@ -29,8 +31,23 @@ const UserProfile = (props) => {
         })
         .catch((error) => console.log(user.data));
     }
+
+    axios
+      .get(`${baseURL}order`)
+      .then((x) => {
+        const data = x.data.data.orderList;
+        const userOrders = data.filter((order) => {
+          console.log(order.user);
+          console.log(context.stateUser.user.id);
+          return order.user.id === context.stateUser.user.id;
+        });
+        setOrders(userOrders);
+      })
+      .catch((error) => console.log(error));
+
     return () => {
       setUserProfile();
+      setOrders();
     };
   }, [context.stateUser.isAuthenticated]);
 
@@ -56,6 +73,20 @@ const UserProfile = (props) => {
               logoutUser(context.dispatch),
             ]}
           />
+        </View>
+        <View style={styles.order}>
+          <Text style={{ fontSize: 20 }}>My Orders</Text>
+          <View>
+            {orders ? (
+              orders.map((x) => {
+                return <OrderCard key={x.id} {...x} />;
+              })
+            ) : (
+              <View style={styles.order}>
+                <Text>You have no orders</Text>
+              </View>
+            )}
+          </View>
         </View>
       </ScrollView>
     </Container>

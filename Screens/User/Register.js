@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import Toast from "react-native-toast-message";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -89,13 +90,23 @@ const Register = (props) => {
           {error ? <Error message={error} /> : null}
         </View>
         <View>
-          <Button title="Register" onPress={register} />
+          {/* <Button title="Register" onPress={register} /> */}
+          <EasyButton large primary onPress={register}>
+            <Text style={{ color: "white" }}>Register</Text>
+          </EasyButton>
         </View>
         <View>
-          <Button
-            title="Back to Login"
+          {/* <Button
+title="Back to Login"
+onPress={() => props.navigation.navigate("Login")}
+/> */}
+          <EasyButton
+            large
+            secondary
             onPress={() => props.navigation.navigate("Login")}
-          />
+          >
+            <Text style={{ color: "white" }}>Back to Login</Text>
+          </EasyButton>
         </View>
       </FormContainer>
     </KeyboardAwareScrollView>
